@@ -8,7 +8,7 @@ type Empregado = {
     dataInicio: Date;
 };
 
-//interface EmpregadoElevado extends Empregado, Admin {}
+//interface EmpregadoElevado extends Empregado, Admin { }
 type EmpregadoElevado = Admin & Empregado;
 
 const e1: EmpregadoElevado = {
