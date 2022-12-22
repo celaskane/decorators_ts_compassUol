@@ -104,3 +104,18 @@ function moveAnimal(animal: Animal) {
 }
 
 moveAnimal({tipo: 'passaro', velocidadeVoo: 20});
+
+//Type Casting
+//const paragrafo = document.querySelector('p');
+//const paragrafo = document.getElementById('message-output');
+//HTMLInputElement reconhece const como não nulo e value
+const userInputElement1 = <HTMLInputElement>document.getElementById('user-input');
+userInputElement1.value = 'Oioioi!!';
+
+const userInputElement2 = document.getElementById('user-input') as HTMLInputElement;
+userInputElement2.value = 'Hihihi!!';
+
+const userInputElement3 = document.getElementById('user-input');
+if (userInputElement3) {
+    (userInputElement3 as HTMLInputElement).value = "holaaa";
+}
