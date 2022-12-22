@@ -76,3 +76,31 @@ function usaVeiculo(veiculo: Veiculo) {
 }
 usaVeiculo(v1);
 usaVeiculo(v2);
+
+//Discriminated Unions
+interface Passaro {
+    tipo: 'passaro';
+    velocidadeVoo: number;
+}
+
+interface Cavalo {
+    tipo: 'cavalo';
+    velocidadeCorrida: number;
+}
+
+type Animal = Passaro | Cavalo;
+
+function moveAnimal(animal: Animal) {
+    //instanceof não funciona aqui por usarmos interface
+    let velocidade;
+    switch (animal.tipo) {
+        case 'passaro':
+            velocidade = animal.velocidadeVoo;
+            break;
+        case 'cavalo':
+            velocidade = animal.velocidadeCorrida;
+    }
+    console.log('Move-se com velocidade: ' + velocidade);
+}
+
+moveAnimal({tipo: 'passaro', velocidadeVoo: 20});
