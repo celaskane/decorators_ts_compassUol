@@ -27,3 +27,21 @@ function merge<T extends object, U extends object>(objA: T, objB: U) {
 
 const mergedObj = merge({nome: 'Alejandro', hobbies: ['Qualquer']}, {idade: 77});
 console.log(mergedObj);
+
+// Outra função genérica
+
+interface Comprimento {
+    length: number;
+}
+
+function contaEDescreve<T extends Comprimento>(elemento: T) {
+    let textoDescritivo = 'Não tem valor';
+    if (elemento.length > 0) {
+        textoDescritivo = 'Possui um elemento';
+    } else if (elemento.length > 1) {
+        textoDescritivo = 'Possui ' + elemento.length + ' elementos';
+    }
+    return [elemento, textoDescritivo];
+}
+
+console.log(contaEDescreve(['Hola', 'señores!']));
