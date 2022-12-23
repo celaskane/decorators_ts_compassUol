@@ -1,3 +1,4 @@
 node_modules
 dist
-./src/advancedTypes.ts
+/src/advancedTypes.ts
+/src/generics.ts
