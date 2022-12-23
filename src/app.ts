@@ -42,11 +42,33 @@ function LogIn(alvo: any, nomePropriedade: string | Symbol) {
     console.log(alvo, nomePropriedade);
 }
 
+function Log2(alvo: any, nome: string, descricao: PropertyDescriptor) {
+    console.log('Accessor Decorator');
+    console.log(alvo);
+    console.log(nome);
+    console.log(descricao);
+}
+
+function Log3(alvo: any, nome: string | Symbol, descricao: PropertyDescriptor) {
+    console.log('Método Decorator');
+    console.log(alvo);
+    console.log(nome);
+    console.log(descricao);
+}
+
+function Log4(alvo: any, nome: string | Symbol, posicao: number) {
+    console.log('Parâmetro Decorator');
+    console.log(alvo);
+    console.log(nome);
+    console.log(posicao);
+}
+
 class Produto {
     @LogIn
     titulo: string;
     private _preco: number;
 
+    @Log2
     set preco(valor: number) {
         if (valor > 0) {
             this._preco = valor;
@@ -60,7 +82,8 @@ class Produto {
         this._preco = n;
     }
 
-    getPrecoComTaxa(taxa: number) {
+    @Log3
+    getPrecoComTaxa(@Log4 taxa: number) {
         return this._preco * (1 + taxa)
     }
 }
