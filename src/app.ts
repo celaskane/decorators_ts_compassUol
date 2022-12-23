@@ -45,3 +45,13 @@ function contaEDescreve<T extends Comprimento>(elemento: T) {
 }
 
 console.log(contaEDescreve(['Hola', 'señores!']));
+
+// keyof Constraint
+function extraiEConverte<T extends object, U extends keyof T>(
+    obj: T, 
+    key: U
+    ) {
+    return 'Valor: ' + obj[key];
+}
+
+extraiEConverte({ nome: 'Leandros' }, 'nome');  // key só permite acessar um componente do objeto
