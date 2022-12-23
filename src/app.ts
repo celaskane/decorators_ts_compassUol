@@ -1,12 +1,14 @@
 // primeira classe com decorator 
 //(tsconfig.json => experimentalDecorators: true)
 
-function Entrar(constructor: Function) {
-    console.log('Entrando...');
-    console.log(constructor);
+function Entrar(textoEntrada: string) {
+    return function(constructor: Function) {
+        console.log(textoEntrada);
+        console.log(constructor);
+    };
 }
 
-@Entrar
+@Entrar('Entrando...')
 class Pessoa {
     nome = 'Alejandro';
 
