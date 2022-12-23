@@ -55,3 +55,36 @@ function extraiEConverte<T extends object, U extends keyof T>(
 }
 
 extraiEConverte({ nome: 'Leandros' }, 'nome');  // key só permite acessar um componente do objeto
+
+// Classes Genéricas
+class Armazena<T extends string | number | boolean> {
+    private dado: T[] = [];
+
+    incluiItem(item: T) {
+        this.dado.push(item);   //incluindo um elemento na array
+    }
+
+    apagaItem(item: T) {
+        if (this.dado.indexOf(item) === -1)
+            return;
+        this.dado.splice(this.dado.indexOf(item), 1); //removendo um elemento da array
+    }
+
+    getItens() {
+        return [...this.dado];
+    }
+}
+
+const armazenaTexto = new Armazena<string>();
+armazenaTexto.incluiItem('Meu textinho');
+armazenaTexto.incluiItem('Outro textinho');
+armazenaTexto.apagaItem('Outro textinho');      //tchau textinho :/
+console.log(armazenaTexto.getItens());
+
+const armazenaNumero = new Armazena<number>();
+
+/* const objArmazendo = new Armazena<object>();
+objArmazendo.incluiItem({nome: 'Alejandro'});
+objArmazendo.incluiItem({nome: 'Leandro'});
+objArmazendo.apagaItem({nome: 'Alejandro'});
+console.log(objArmazendo.getItens()); */
