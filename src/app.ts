@@ -123,3 +123,80 @@ const p = new Mostrador();
 
 const botao = document.querySelector('button')!;
 botao.addEventListener('click', p.mostraMensagem);
+
+
+// Validação com Decorators
+
+interface ValidaConfig {
+    [propriedade: string]: {
+        [validavelProp: string]: string[]
+    }
+}
+
+const validaRegistrados: ValidaConfig = {};
+
+function  Requerido(alvo: any, propNome: string) {
+    validaRegistrados[alvo.constructor.nome] = {
+        ...validaRegistrados[alvo.constructor.nome],
+        [propNome]: ['requerido']
+    };
+}
+
+function NumeroPositivo(alvo: any, propNome: string) {
+    validaRegistrados[alvo.constructor.nome] = {
+        ...validaRegistrados[alvo.constructor.nome],
+        [propNome]: ['positivo']
+    };
+}
+
+function Valida(obj: any) {
+    const validaObjConfig = validaRegistrados[obj.constructor.nome];
+    if (!validaObjConfig) {
+        return true;
+    }
+    let ehValido = true;
+    for (const prop in validaObjConfig) {
+        console.log(prop);
+        for (const validador of validaObjConfig[prop]) {
+            switch (validador) {
+                case 'requerido':
+                    ehValido = ehValido && !obj[prop];
+                    break;
+                case 'positivo':
+                    ehValido = ehValido && obj[prop] > 0;
+                    break;
+            }
+        }
+    }
+    return ehValido;
+}
+
+class Curso {
+    @Requerido
+    titulo: string;
+    @NumeroPositivo
+    preco: number;
+
+    constructor(t: string, p: number) {
+        this.titulo = t;
+        this.preco = p;
+    }
+}
+
+const cursoForm = document.querySelector('form')!;
+cursoForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const tituloEl = document.getElementById('titulo') as HTMLInputElement;
+    const precoEl = document.getElementById('preco') as HTMLInputElement;
+
+    const titulo = tituloEl.value;
+    const preco = +precoEl.value;
+
+    const cursoCriado = new Curso(titulo, preco);
+    
+    if (!Valida(cursoCriado)) {
+        alert('Entrada inválida, por favor tente novamente!');
+        return;
+    }
+    console.log(cursoCriado);
+});
