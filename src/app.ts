@@ -91,3 +91,35 @@ class Produto {
         return this._preco * (1 + taxa)
     }
 }
+
+const p1 = new Produto('Livro1', 20);
+const p2 = new Produto('livro2', 35);
+
+// Autobind
+
+function Autobind(_: any, _2: string, descricao: PropertyDescriptor) {
+    const metodoOriginal = descricao.value;
+    const adjDescricao: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        get() {
+            const boundFn = metodoOriginal.bind(this);
+            return boundFn;
+        }
+    };
+    return adjDescricao;
+}
+
+class Mostrador {
+    mensagem = 'Está funcionando!!!';
+
+    @Autobind
+    mostraMensagem() {
+        console.log(this.mensagem);
+    }
+}
+
+const p = new Mostrador();
+
+const botao = document.querySelector('button')!;
+botao.addEventListener('click', p.mostraMensagem);
