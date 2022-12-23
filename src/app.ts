@@ -119,3 +119,13 @@ const userInputElement3 = document.getElementById('user-input');
 if (userInputElement3) {
     (userInputElement3 as HTMLInputElement).value = "holaaa";
 }
+
+//Propriedades do Index
+interface ErrorContainer {      // { email: 'email invalido', username: 'deve começar com uma letra' }
+    [prop: string]: string;     // qualquer propriedade deve ser string, não precisamos saber as propriedades
+}
+
+const errorBag: ErrorContainer = {
+    email: 'E-mail inválido',   //não aceitará números, apenas string
+    username: 'Deve começar com letra maiúscula'
+}
