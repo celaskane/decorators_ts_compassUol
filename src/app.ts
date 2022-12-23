@@ -10,15 +10,19 @@ function Entrar(textoEntrada: string) {
 
 function ComTemplate(template: string, puxaId: string) {
     // _ para simbolizar queo constructor não será utilizado
-    return function(constructor: any) {
-        console.log('Renderizando template');
-        const puxaElemento = document.getElementById(puxaId);
-        const p = new constructor();
-        if (puxaElemento) {
-            puxaElemento.innerHTML = template;
-            puxaElemento.querySelector('h1')!.textContent = p.nome;
+    return function<T extends {new(...args: any[]): {nome: string}}>(constructorOriginal: T) {
+        return class extends constructorOriginal {
+            constructor(..._: any[]) {
+                super();
+                console.log('Renderizando template');
+                const puxaElemento = document.getElementById(puxaId);
+                if (puxaElemento) {
+                    puxaElemento.innerHTML = template;
+                    puxaElemento.querySelector('h1')!.textContent = this.nome;
+                }
+            }
         }
-    }
+    };
 }
 
 //@Entrar('Entrando...')
