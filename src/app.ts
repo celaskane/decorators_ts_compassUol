@@ -88,3 +88,26 @@ objArmazendo.incluiItem({nome: 'Alejandro'});
 objArmazendo.incluiItem({nome: 'Leandro'});
 objArmazendo.apagaItem({nome: 'Alejandro'});
 console.log(objArmazendo.getItens()); */
+
+interface ObjetivoCurso {
+    titulo: string;
+    descricao: string;
+    finalizaAte: Date;
+}
+
+function criaObjetivoCurso(
+    titulo: string, 
+    descricao: string, 
+    data: Date
+    ): ObjetivoCurso {
+        //Partial torna propriedades da interface opcionais
+        let ObjetivoCurso: Partial<ObjetivoCurso> = {};
+        ObjetivoCurso.titulo = titulo;
+        ObjetivoCurso.descricao = descricao;
+        ObjetivoCurso.finalizaAte = data;
+        return ObjetivoCurso as ObjetivoCurso;
+}
+
+const nominais: Readonly<string[]> = ['Alejandro', 'Tarot'];
+//nominais.push('lalaa')
+//nominais.pop();
